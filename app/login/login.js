@@ -9,6 +9,7 @@ app.factory('authInterceptor', ['$q', '$window', function ($q, $window) {
       config.headers = config.headers || {};
       if ($window.sessionStorage.token) {
         config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+        window.location.href = 'app/listings/listings.html';
       }
       return config;
     },

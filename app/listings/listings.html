@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<!-- address, city, state, zip, price, description, notes -->
+<html>
+    <head><meta charset="UTF-8">
+        <title>The Clarke Agency - Agent Dashboard</title>
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <!-- BEGIN BOOTSTRAP -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- END BOOTSTRAP -->
+        <!-- CUSTOM STYLE -->
+        <link rel="stylesheet" href="../../assets/css/master.css" media="screen" title="no title">
+        <!-- Include listings script -->
+        <script type="text/javascript" src="listings.js"></script>
+    </head>
+    <body ng-app="NewListing">
+        <header>
+            <div class="container-fluid cf-jumbo">
+                <div class="jumbotron">
+                    <img src="../../assets/images/clarkeagencylogolow.png" alt="The Clarke Agency Inc - Logo" width="90%"/>
+                </div>
+            </div>
+            <div class="container-fluid cf-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation">
+                        <a href="../login/login.html">Login</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="../agents/agents.html">Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="listings.html" class="active">Listings</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="../resources/resources.html">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div ng-controller="controller as c">
+            <label for="address">Address</label>
+            <input type="text" ng-model="c.address">
+            <br>
+            <label for="city">City</label>
+            <input type="text" ng-model="c.city">
+            <br>
+            <label for="state">State</label>
+            <input type="text" ng-model="c.state">
+            <br>
+            <label for="zip">Zip</label>
+            <input type="text" ng-model="c.zip">
+            <br>
+            <label for="price">Price</label>
+            <input type="number" ng-model="c.price">
+            <br>
+            <label for="description">Description</label>
+            <input type="text" ng-model="c.description">
+            <br>
+            <label for="notes">Notes</label>
+            <input type="phone" ng-model="c.notes">
+            <br>
+            <button ng-click="c.post(c.address, c.city, c.state, c.zip, c.price, c.description, c.notes)">Submit New Listing</button>
+            <p>{{c.message}}</p>
+        </div>
+        <!-- CURRENT LISTINGS -->
+        <div id="listings"></div>
+        <!-- END LISTINGS -->
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>
+            </div>
+        </footer>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="form.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
+    <script>
+        'use strict';
+        var node = document.getElementById('listings');
+        var app = Elm.Listings.embed(node);
+    </script>
+</html>

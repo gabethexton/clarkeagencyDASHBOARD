@@ -13,44 +13,49 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- END BOOTSTRAP -->
         <!-- CUSTOM STYLE -->
-        <link rel="stylesheet" href="./assets/css/master.css" media="screen" title="no title">
-        <!-- Include listings script -->
-        <script type="text/javascript" src="app/listings/listings.js"></script>
+        <link rel="stylesheet" href="../../assets/css/master.css" media="screen" title="no title">
     </head>
-    <header>
-        <div class="container-fluid cf-jumbo">
-            <div class="jumbotron">
-                <img src="assets/images/clarkeagencylogolow.png" alt="The Clarke Agency Inc - Logo" width="90%"/>
+    <body ng-app="Login">
+        <header>
+            <div class="container-fluid cf-jumbo">
+                <div class="jumbotron">
+                    <img src="../../assets/images/clarkeagencylogolow.png" alt="The Clarke Agency Inc - Logo" width="90%"/>
+                </div>
+            </div>
+            <div class="container-fluid cf-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="login.html">Login</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="../agents/agents.html">Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="../listings/listings.html">Listings</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="../resources/resources.html">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div class="login panel panel-default">
+            <div ng-controller="controller as c" class="panel-body">
+                <input type="text" ng-model="c.user">
+                <input type="password" ng-model="c.password">
+                <button ng-click="c.auth(c.user, c.password)">Login</button>
+                <button ng-click="c.logout()">Logout</button>
             </div>
         </div>
-        <div class="container-fluid cf-nav">
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active">
-                    <a href="app/login/login.html">Login</a>
-                </li>
-                <li role="presentation">
-                    <a href="app/agents/agents.html">Profile</a>
-                </li>
-                <li role="presentation">
-                    <a href="app/listings/listings.html">Listings</a>
-                </li>
-                <li role="presentation">
-                    <a href="app/resources/resources.html">Resources</a>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <body>
-        <div id="listings"></div>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>
+            </div>
+        </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="login.js"></script>
+        <script type="text/javascript" src="controller.js"></script>
     </body>
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>
-        </div>
-    </footer>
-    <script>
-        'use strict';
-        var node = document.getElementById('listings');
-        var app = Elm.Listings.embed(node);
-    </script>
+
 </html>

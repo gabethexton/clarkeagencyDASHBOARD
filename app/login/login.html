@@ -24,7 +24,7 @@
             </div>
             <div class="container-fluid cf-nav">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active">
+                    <li role="presentation">
                         <a href="login.html">Login</a>
                     </li>
                     <li role="presentation">
@@ -39,22 +39,22 @@
                 </ul>
             </div>
         </header>
-        <div class="login panel panel-default">
-            <div ng-controller="controller as c" class="panel-body">
-                <label>
-                    <span>Username</span><br><input type="text" ng-model="c.user">
-                </label>
-                <br>
-                <label>
-                    <span>Password</span><br><input type="password" ng-model="c.password">
-                </label>
-                <br>
-                <label><button ng-click="c.auth(c.user, c.password)">Login</button></label>
-                <label><button ng-click="c.logout()">Logout</button></label>
-
+        <div class="main">
+            <div class="login panel panel-default">
+                <div ng-controller="controller as c" class="panel-body">
+                    <label>
+                        <span>Username</span><br><input type="text" ng-model="c.user">
+                    </label>
+                    <br>
+                    <label>
+                        <span>Password</span><br><input type="password" ng-model="c.password">
+                    </label>
+                    <br>
+                    <label><button ng-click="c.auth(c.user, c.password)">Login</button></label>
+                    <label><button ng-click="c.logout()">Logout</button></label>
+                </div>
             </div>
         </div>
-
         <footer class="footer">
             <div class="container">
                 <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>

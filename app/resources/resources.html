@@ -52,11 +52,14 @@
             <label>
                 <span>Title</span><br><input type="text" ng-model="c.title">
             </label>
+            <br>
             <label>
-                <span>Text</span><br><textarea id="bio" ng-model="c.text"></textarea>
+                <span>Text</span><br><textarea cols="40" id="bio" ng-model="c.text"></textarea>
             </label>
             <br>
-            <label><button ng-click="c.post(c.category, c.subcategory, c.title, c.text)">Submit New Resource</button></label>
+            <label>
+                <button ng-click="c.post(c.category, c.subcategory, c.title, c.text)">Submit New Resource</button>
+            </label>
 
             <p>{{c.message}}</p>
         </div>

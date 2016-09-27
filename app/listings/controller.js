@@ -5,13 +5,14 @@ app.controller('controller', ['$http', '$window', function ($http, $window) {
 
     vm.sessionStorage = $window.sessionStorage;
 
-    vm.post = function (address, city, state, zip, price, description, notes) {
+    vm.post = function (address, city, state, zip, price, pic, description, notes) {
         $http.post('https://clarkeagency.herokuapp.com/listings', {
             address: address,
             city: city,
             state: state,
             zip: zip,
             price: price,
+            pic:pic,
             description: description,
             notes: notes
         })

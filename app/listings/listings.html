@@ -42,37 +42,44 @@
                 </ul>
             </div>
         </header>
-        <div ng-controller="controller as c" class="left">
-            <h4>Add a new listing...</h4>
-            <label>
-                <span>Address</span><br><input type="text" ng-model="c.address">
-            </label>
-            <label>
-                <span>City</span><br><input type="text" ng-model="c.city">
-            </label>
-            <label>
-                <span>State</span><br><input type="text" ng-model="c.state">
-            </label>
-            <label>
-                <span>Zip</span><br><input type="text" ng-model="c.zip">
-            </label>
-            <label>
-                <span>Price</span><br><input type="text" ng-model="c.price">
-            </label>
-            <label>
-                <span>Description</span><br><textarea id="bio" ng-model="c.description"></textarea>
-            </label>
-            <label>
-                <span>Notes</span><br><textarea id="bio" ng-model="c.notes"></textarea>
-            </label>
-            <br>
-            <label><button ng-click="c.post(c.address, c.city, c.state, c.zip, c.price, c.description, c.notes)">Submit New Listing</button></label>
-
-            <p>{{c.message}}</p>
+        <div class="main">
+            <div ng-controller="controller as c" ng-cloak class="left form">
+                <h4 class="form-heading">Add a new listing...</h4>
+                <label>
+                    <span>Address</span><br><input type="text" ng-model="c.address">
+                </label>
+                <label>
+                    <span>City</span><br><input type="text" ng-model="c.city">
+                </label>
+                <label>
+                    <span>State</span><br><input type="text" ng-model="c.state">
+                </label>
+                <label>
+                    <span>Zip</span><br><input type="text" ng-model="c.zip">
+                </label>
+                <label>
+                    <span>Price</span><br><input type="text" ng-model="c.price">
+                </label>
+                <label>
+                    <span>Hero Image (please enter a full URL)</span><br><input type="text" ng-model="c.pic">
+                </label>
+                <label>
+                    <span>Description</span><br><textarea cols="40" id="bio" ng-model="c.description"></textarea>
+                </label>
+                <label>
+                    <span>Notes</span><br><textarea cols="40" id="bio" ng-model="c.notes"></textarea>
+                </label>
+                <br>
+                <label><button ng-click="c.post(c.address, c.city, c.state, c.zip, c.price, c.pic, c.description, c.notes)">Submit New Listing</button></label>
+                <p>{{c.message}}</p>
+            </div>
+            <!-- CURRENT LISTINGS -->
+            <div class="right">
+                <h4 class="form-heading">Our current listings are:</h4>
+                <div id="listings">
+            </div>
+            <!-- END LISTINGS -->
         </div>
-        <!-- CURRENT LISTINGS -->
-        <div id="listings" class="right"></div>
-        <!-- END LISTINGS -->
         <footer class="footer">
             <div class="container">
                 <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>

@@ -16,15 +16,8 @@
         <link rel="stylesheet" href="../../assets/css/master.css" media="screen" title="no title">
         <!-- Include agents script -->
         <script type="text/javascript" src="agents.js"></script>
-        <script type="text/javascript">
-            var auth = false;
-            if(window.sessionStorage.token){auth = true}
-            else {
-                auth=false;
-            }
-        </script>
     </head>
-    <body ng-app="NewAgent">
+    <body ng-app="NewAgent" ng-cloak>
         <header>
             <div class="container-fluid cf-jumbo">
                 <div class="jumbotron">
@@ -48,44 +41,64 @@
                 </ul>
             </div>
         </header>
-        <div ng-controller="controller as c" class="left" ng-show=auth>
-            <h4>Add a new agent...</h4>
-            <label>
-                <span>Username</span><br><input type="text" ng-model="c.username">
-            </label>
-            <label>
-                <span>Password</span><br><input type="text" ng-model="c.password">
-            </label>
-            <label>
-                <span>First Name</span><br><input type="text" ng-model="c.firstname">
-            </label>
-            <label>
-                <span>Last Name</span><br><input type="text" ng-model="c.lastname">
-            </label>
-            <label>
-                <span>Display Name</span><br><input type="text" ng-model="c.displayname">
-            </label>
-            <label>
-                <span>Title</span><br><input type="text" ng-model="c.title">
-            </label>
-            <label>
-                <span>Phone</span><br><input type="text" ng-model="c.phone">
-            </label>
-            <label>
-                <span>Email</span><br><input type="text" ng-model="c.email">
-            </label>
-            <label>
-                <span>Bio</span><br><textarea id="bio" ng-model="c.bio"></textarea>
-            </label>
-            <br>
-            <label>
-                <button ng-click="c.post(c.username, c.password, c.firstname, c.lastname, c.displayname, c.title, c.phone, c.email, c.bio)">Create New Agent</button>
-            </label>
-            <p>{{c.message}}</p>
+        <div class="main">
+            <div class="center">
+                <p ng-show="c.sessionStorage.length<1">
+                    Please Login to access this information.
+                </p>
+            </div>
+            <div ng-controller="controller as c" class="left form" ng-show="c.sessionStorage.length>0">
+                <h4 class="form-heading">Update your profile or add a new agent here.</h4>
+                <label>
+                    <span>Username</span><br><input type="text" ng-model="c.username">
+                </label>
+                <label>
+                    <span>Password</span><br><input type="text" ng-model="c.password">
+                </label>
+                <label>
+                    <span>First Name</span><br><input type="text" ng-model="c.firstname">
+                </label>
+                <label>
+                    <span>Last Name</span><br><input type="text" ng-model="c.lastname">
+                </label>
+                <label>
+                    <span>Display Name</span><br><input type="text" ng-model="c.displayname">
+                </label>
+                <label>
+                    <span>Title</span><br><input type="text" ng-model="c.title">
+                </label>
+                <label>
+                    <span>Phone</span><br><input type="text" ng-model="c.phone">
+                </label>
+                <label>
+                    <span>Email</span><br><input type="text" ng-model="c.email">
+                </label>
+                <label>
+                    <span>Profile Picture <em>(please enter a full URL)</em></span><br><input type="text" ng-model="c.pic">
+                </label>
+                <label>
+                    <span>Bio (enter a paragraph or two about yourself)</span><br><textarea cols="40" id="bio" ng-model="c.bio"></textarea>
+                </label>
+                <br>
+                <label>
+                    <button ng-click="c.put(c.username, c.password, c.firstname, c.lastname, c.displayname, c.title, c.phone, c.email, c.bio)">Update My Profile</button>
+                </label>
+                <label>
+                    <button ng-click="c.post(c.username, c.password, c.firstname, c.lastname, c.displayname, c.title, c.phone, c.email, c.bio)">Create New Agent</button>
+                </label>
+                <p>{{c.message}}</p>
+            </div>
+            <!-- PROFILE SHOWN HERE! -->
+            <div class="right">
+                <h4 class="form-heading">Your current profile is:</h4>
+                <div id="agents">
+            </div>
+
+
+            </div>
+            <!-- END PROFILE -->
         </div>
-        <!-- PROFILE SHOWN HERE! -->
-        <div id="agents" class="right"></div>
-        <!-- END PROFILE -->
+
         <footer class="footer">
             <div class="container">
                 <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>

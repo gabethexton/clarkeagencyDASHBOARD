@@ -43,6 +43,7 @@ type alias AgentInfo =
     , title : String
     , phone : String
     , email : String
+    , pic : String
     , bio : String
     , created : String
     }
@@ -103,56 +104,44 @@ view model =
             div
                 [ class "panel panel-default agent-card" ]
                 [ div
-                    [ class "panel-heading" ]
-                    [ h3
-                        [ class "panel-title" ]
-                        [ text <| agent.firstname ++ " " ++ agent.lastname ]
-                    , h6 []
-                        [ text <| agent.title ]
+                    [ class "panel-heading agent-heading" ]
+                    [ div [ class "profile-title" ]
+                        [ h3
+                            [ class "panel-title" ]
+                            [ text <| agent.firstname ++ " " ++ agent.lastname ]
+                        , h6 []
+                            [ text <| agent.title ]
+                        ]
                     ]
                 , div
-                    [ class "panel-body" ]
-                    [ ul [ attribute "style" "list-style: none;" ]
+                    [ class "panel-body profile-details" ]
+                    [ div [ class "profile-pic" ] [ img [ src agent.pic ] [] ]
+                    , ul [ class "details-list", attribute "style" "list-style: none;" ]
                         [ li []
-                            [ text ("id: " ++ (toString agent.id))
+                            [ h5 [] [ text ("Username:  " ++ agent.username) ]
                             ]
                         , li []
-                            [ text ("username: " ++ agent.username)
+                            [ h5 [] [ text ("Display Name: " ++ agent.displayname) ]
                             ]
                         , li []
-                            [ text ("password: " ++ agent.password)
+                            [ h5 [] [ text ("Phone: " ++ agent.phone) ]
                             ]
                         , li []
-                            [ text ("firstname: " ++ agent.lastname)
+                            [ h5 [] [ text ("Email: " ++ agent.email) ]
                             ]
-                        , li []
-                            [ text ("displayname: " ++ (toString agent.displayname))
-                            ]
-                        , li []
-                            [ text ("title: " ++ (toString agent.title))
-                            ]
-                        , li []
-                            [ text ("phone: " ++ (toString agent.phone))
-                            ]
-                        , li []
-                            [ text ("email: " ++ (toString agent.email))
-                            ]
-                        , li []
-                            [ text ("bio: " ++ (toString agent.bio))
-                            ]
-                        , li []
-                            [ text ("created: " ++ (toString agent.created))
-                            ]
-                        , br [] []
                         ]
+                    , hr [] []
+                    , div [ class "agent-bio" ]
+                        [ h6 [] [ text <| agent.bio ] ]
                     ]
                 ]
     in
         div []
-            [ div [] [ text model.message ]
-            , button [ onClick GetAgents ] [ text "Refresh Profile" ]
-            , ul [] (List.map showAgent model.agents)
-            , hr [] []
+            [ ul [] (List.map showAgent model.agents)
+            , div [ class "refresh-button" ]
+                [ button [ onClick GetAgents ] [ text "Refresh Profile" ]
+                , h5 [] [ text model.message ]
+                ]
             ]
 
 
@@ -253,6 +242,7 @@ agentInfoDecoder =
         |> Json.Decode.Pipeline.required "title" Json.Decode.string
         |> Json.Decode.Pipeline.required "phone" Json.Decode.string
         |> Json.Decode.Pipeline.required "email" Json.Decode.string
+        |> Json.Decode.Pipeline.required "pic" Json.Decode.string
         |> Json.Decode.Pipeline.required "bio" Json.Decode.string
         |> Json.Decode.Pipeline.required "created" Json.Decode.string
 

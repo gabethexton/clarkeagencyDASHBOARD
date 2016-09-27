@@ -9012,7 +9012,9 @@ var _user$project$Agents$AgentInfo = function (a) {
 								return function (i) {
 									return function (j) {
 										return function (k) {
-											return {id: a, username: b, password: c, firstname: d, lastname: e, displayname: f, title: g, phone: h, email: i, bio: j, created: k};
+											return function (l) {
+												return {id: a, username: b, password: c, firstname: d, lastname: e, displayname: f, title: g, phone: h, email: i, pic: j, bio: k, created: l};
+											};
 										};
 									};
 								};
@@ -9034,41 +9036,45 @@ var _user$project$Agents$agentInfoDecoder = A3(
 		_elm_lang$core$Json_Decode$string,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'email',
+			'pic',
 			_elm_lang$core$Json_Decode$string,
 			A3(
 				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-				'phone',
+				'email',
 				_elm_lang$core$Json_Decode$string,
 				A3(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'title',
+					'phone',
 					_elm_lang$core$Json_Decode$string,
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'displayname',
+						'title',
 						_elm_lang$core$Json_Decode$string,
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'lastname',
+							'displayname',
 							_elm_lang$core$Json_Decode$string,
 							A3(
 								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-								'firstname',
+								'lastname',
 								_elm_lang$core$Json_Decode$string,
 								A3(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-									'password',
+									'firstname',
 									_elm_lang$core$Json_Decode$string,
 									A3(
 										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-										'username',
+										'password',
 										_elm_lang$core$Json_Decode$string,
 										A3(
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-											'id',
-											_elm_lang$core$Json_Decode$int,
-											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Agents$AgentInfo))))))))))));
+											'username',
+											_elm_lang$core$Json_Decode$string,
+											A3(
+												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+												'id',
+												_elm_lang$core$Json_Decode$int,
+												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Agents$AgentInfo)))))))))))));
 var _user$project$Agents$agentInfoListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Agents$agentInfoDecoder);
 var _user$project$Agents$Request = F4(
 	function (a, b, c, d) {
@@ -9162,45 +9168,72 @@ var _user$project$Agents$view = function (model) {
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('panel-heading')
+							_elm_lang$html$Html_Attributes$class('panel-heading agent-heading')
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(
-							_elm_lang$html$Html$h3,
+							_elm_lang$html$Html$div,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html_Attributes$class('panel-title')
+									_elm_lang$html$Html_Attributes$class('profile-title')
 								]),
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html$text(
 									A2(
-										_elm_lang$core$Basics_ops['++'],
-										agent.firstname,
-										A2(_elm_lang$core$Basics_ops['++'], ' ', agent.lastname)))
-								])),
-							A2(
-							_elm_lang$html$Html$h6,
-							_elm_lang$core$Native_List.fromArray(
-								[]),
-							_elm_lang$core$Native_List.fromArray(
-								[
-									_elm_lang$html$Html$text(agent.title)
+									_elm_lang$html$Html$h3,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('panel-title')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html$text(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												agent.firstname,
+												A2(_elm_lang$core$Basics_ops['++'], ' ', agent.lastname)))
+										])),
+									A2(
+									_elm_lang$html$Html$h6,
+									_elm_lang$core$Native_List.fromArray(
+										[]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html$text(agent.title)
+										]))
 								]))
 						])),
 					A2(
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('panel-body')
+							_elm_lang$html$Html_Attributes$class('panel-body profile-details')
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('profile-pic')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$img,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$src(agent.pic)
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
+								])),
+							A2(
 							_elm_lang$html$Html$ul,
 							_elm_lang$core$Native_List.fromArray(
 								[
+									_elm_lang$html$Html_Attributes$class('details-list'),
 									A2(_elm_lang$html$Html_Attributes$attribute, 'style', 'list-style: none;')
 								]),
 							_elm_lang$core$Native_List.fromArray(
@@ -9211,11 +9244,15 @@ var _user$project$Agents$view = function (model) {
 										[]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											_elm_lang$html$Html$text(
 											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'id: ',
-												_elm_lang$core$Basics$toString(agent.id)))
+											_elm_lang$html$Html$h5,
+											_elm_lang$core$Native_List.fromArray(
+												[]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], 'Username:  ', agent.username))
+												]))
 										])),
 									A2(
 									_elm_lang$html$Html$li,
@@ -9223,38 +9260,15 @@ var _user$project$Agents$view = function (model) {
 										[]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											_elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'username: ', agent.username))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'password: ', agent.password))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'firstname: ', agent.lastname))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
 											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'displayname: ',
-												_elm_lang$core$Basics$toString(agent.displayname)))
+											_elm_lang$html$Html$h5,
+											_elm_lang$core$Native_List.fromArray(
+												[]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], 'Display Name: ', agent.displayname))
+												]))
 										])),
 									A2(
 									_elm_lang$html$Html$li,
@@ -9262,11 +9276,15 @@ var _user$project$Agents$view = function (model) {
 										[]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											_elm_lang$html$Html$text(
 											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'title: ',
-												_elm_lang$core$Basics$toString(agent.title)))
+											_elm_lang$html$Html$h5,
+											_elm_lang$core$Native_List.fromArray(
+												[]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], 'Phone: ', agent.phone))
+												]))
 										])),
 									A2(
 									_elm_lang$html$Html$li,
@@ -9274,54 +9292,39 @@ var _user$project$Agents$view = function (model) {
 										[]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											_elm_lang$html$Html$text(
 											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'phone: ',
-												_elm_lang$core$Basics$toString(agent.phone)))
-										])),
+											_elm_lang$html$Html$h5,
+											_elm_lang$core$Native_List.fromArray(
+												[]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], 'Email: ', agent.email))
+												]))
+										]))
+								])),
+							A2(
+							_elm_lang$html$Html$hr,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('agent-bio')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
 									A2(
-									_elm_lang$html$Html$li,
+									_elm_lang$html$Html$h6,
 									_elm_lang$core$Native_List.fromArray(
 										[]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											_elm_lang$html$Html$text(
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'email: ',
-												_elm_lang$core$Basics$toString(agent.email)))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'bio: ',
-												_elm_lang$core$Basics$toString(agent.bio)))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'created: ',
-												_elm_lang$core$Basics$toString(agent.created)))
-										])),
-									A2(
-									_elm_lang$html$Html$br,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[]))
+											_elm_lang$html$Html$text(agent.bio)
+										]))
 								]))
 						]))
 				]));
@@ -9333,34 +9336,36 @@ var _user$project$Agents$view = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(model.message)
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Agents$GetAgents)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('Refresh Profile')
-					])),
-				A2(
 				_elm_lang$html$Html$ul,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				A2(_elm_lang$core$List$map, showAgent, model.agents)),
 				A2(
-				_elm_lang$html$Html$hr,
+				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
-					[]))
+					[
+						A2(
+						_elm_lang$html$Html$h5,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text(model.message)
+							])),
+						A2(
+						_elm_lang$html$Html$button,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('refresh-button'),
+								_elm_lang$html$Html_Events$onClick(_user$project$Agents$GetAgents)
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Refresh Profile')
+							]))
+					]))
 			]));
 };
 var _user$project$Agents$main = {

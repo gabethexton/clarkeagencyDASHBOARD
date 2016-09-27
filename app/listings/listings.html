@@ -42,33 +42,36 @@
                 </ul>
             </div>
         </header>
-        <div ng-controller="controller as c">
-            <label for="address">Address</label>
-            <input type="text" ng-model="c.address">
+        <div ng-controller="controller as c" class="left">
+            <h4>Add a new listing...</h4>
+            <label>
+                <span>Address</span><br><input type="text" ng-model="c.address">
+            </label>
+            <label>
+                <span>City</span><br><input type="text" ng-model="c.city">
+            </label>
+            <label>
+                <span>State</span><br><input type="text" ng-model="c.state">
+            </label>
+            <label>
+                <span>Zip</span><br><input type="text" ng-model="c.zip">
+            </label>
+            <label>
+                <span>Price</span><br><input type="text" ng-model="c.price">
+            </label>
+            <label>
+                <span>Description</span><br><textarea id="bio" ng-model="c.description"></textarea>
+            </label>
+            <label>
+                <span>Notes</span><br><textarea id="bio" ng-model="c.notes"></textarea>
+            </label>
             <br>
-            <label for="city">City</label>
-            <input type="text" ng-model="c.city">
-            <br>
-            <label for="state">State</label>
-            <input type="text" ng-model="c.state">
-            <br>
-            <label for="zip">Zip</label>
-            <input type="text" ng-model="c.zip">
-            <br>
-            <label for="price">Price</label>
-            <input type="number" ng-model="c.price">
-            <br>
-            <label for="description">Description</label>
-            <input type="text" ng-model="c.description">
-            <br>
-            <label for="notes">Notes</label>
-            <input type="phone" ng-model="c.notes">
-            <br>
-            <button ng-click="c.post(c.address, c.city, c.state, c.zip, c.price, c.description, c.notes)">Submit New Listing</button>
+            <label><button ng-click="c.post(c.address, c.city, c.state, c.zip, c.price, c.description, c.notes)">Submit New Listing</button></label>
+
             <p>{{c.message}}</p>
         </div>
         <!-- CURRENT LISTINGS -->
-        <div id="listings"></div>
+        <div id="listings" class="right"></div>
         <!-- END LISTINGS -->
         <footer class="footer">
             <div class="container">

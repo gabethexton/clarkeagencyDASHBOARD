@@ -67,3 +67,60 @@ footer {
     padding: 50px;
     text-align: center;
 }
+
+form {
+    background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+    margin: auto;
+    position: relative;
+    width: 550px;
+    height: 450px;
+    color: #09C;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input {
+    width: 375px;
+    display: inline-block;
+    border: 1px solid #999;
+    height: 25px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+textarea#bio {
+    width: 375px;
+    height: 200px;
+    display: inline-block;
+    border: 1px solid #999;
+    height: 25px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+button {
+    right: 20px;
+    bottom: 20px;
+    color: black;
+    height: 30px;
+    border: 1p solid #999;
+}
+
+textarea:focus, input:focus {
+    border: 1px solid #09C;
+}
+
+.left {
+    padding: 20px;
+    float: left;
+    width: 40%;
+    display: inline-block;
+}
+
+.right {
+    padding: 20px;
+    float: right;
+    display: inline-block;
+}

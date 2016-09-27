@@ -19,7 +19,7 @@ app.factory('authInterceptor', ['$q', '$window', function ($q, $window) {
         console.log("User not authenticated.");
       }
 
-      window.location.href = 'app/listings/listings.html';
+      window.location.href = '../../app/listings/listings.html';
       return response || $q.when(response);
     }
   };

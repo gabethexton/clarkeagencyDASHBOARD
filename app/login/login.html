@@ -41,10 +41,17 @@
         </header>
         <div class="login panel panel-default">
             <div ng-controller="controller as c" class="panel-body">
-                <input type="text" ng-model="c.user">
-                <input type="password" ng-model="c.password">
-                <button ng-click="c.auth(c.user, c.password)">Login</button>
-                <button ng-click="c.logout()">Logout</button>
+                <label>
+                    <span>Username</span><br><input type="text" ng-model="c.user">
+                </label>
+                <br>
+                <label>
+                    <span>Password</span><br><input type="password" ng-model="c.password">
+                </label>
+                <br>
+                <label><button ng-click="c.auth(c.user, c.password)">Login</button></label>
+                <label><button ng-click="c.logout()">Logout</button></label>
+
             </div>
         </div>
 

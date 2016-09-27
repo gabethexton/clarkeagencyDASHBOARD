@@ -3942,7 +3942,7 @@ function endsWith(sub, str)
 function indexes(sub, str)
 {
 	var subLen = sub.length;
-	
+
 	if (subLen < 1)
 	{
 		return _elm_lang$core$Native_List.Nil;
@@ -3955,8 +3955,8 @@ function indexes(sub, str)
 	{
 		is.push(i);
 		i = i + subLen;
-	}	
-	
+	}
+
 	return _elm_lang$core$Native_List.fromArray(is);
 }
 
@@ -9080,6 +9080,7 @@ var _user$project$Agents$AgentsFetched = function (a) {
 var _user$project$Agents$ErrorOccurred = function (a) {
 	return {ctor: 'ErrorOccurred', _0: a};
 };
+var currentAgent = sessionStorage.getItem('id');
 var _user$project$Agents$getAgents = A3(
 	_elm_lang$core$Task$perform,
 	_user$project$Agents$ErrorOccurred,
@@ -9087,7 +9088,7 @@ var _user$project$Agents$getAgents = A3(
 	A2(
 		_elm_lang$core$Task$mapError,
 		_elm_lang$core$Basics$toString,
-		A2(_evancz$elm_http$Http$get, _user$project$Agents$agentInfoListDecoder, 'https://clarkeagency.herokuapp.com/agents/1')));
+		A2(_evancz$elm_http$Http$get, _user$project$Agents$agentInfoListDecoder, ('https://clarkeagency.herokuapp.com/agents/'.concat(currentAgent)))));
 var _user$project$Agents$initModel = function () {
 	var model = {
 		helloWorld: 'Hello World!',
@@ -9418,4 +9419,3 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-

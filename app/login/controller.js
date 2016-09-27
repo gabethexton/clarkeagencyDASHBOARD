@@ -11,6 +11,7 @@ app.controller('controller',['$http','$window',function($http, $window){
     .then(function(response){
       console.log(response);
       $window.sessionStorage.token = response.data.token;
+      $window.sessionStorage.id = response.data.id;
       vm.message = "Logged in successful";
       console.log(vm.message);
 
@@ -18,6 +19,7 @@ app.controller('controller',['$http','$window',function($http, $window){
     .catch(function(err){
       console.log(err);
       delete $window.sessionStorage.token;
+      delete $window.sessionStorage.id;
       vm.message = "Log in unsuccessful";
       console.log(vm.message);
     });
@@ -25,6 +27,7 @@ app.controller('controller',['$http','$window',function($http, $window){
 
   vm.logout = function(){
     delete $window.sessionStorage.token;
+    delete $window.sessionStorage.id;
     vm.message = "Log out successful";
     console.log(vm.message);
 };

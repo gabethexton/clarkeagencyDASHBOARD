@@ -42,30 +42,35 @@
                 </ul>
             </div>
         </header>
-        <div ng-controller="controller as c" class="left">
-            <label>
-                <span>Category</span><br><input type="text" ng-model="c.category">
-            </label>
-            <label>
-                <span>Subcategory</span><br><input type="text" ng-model="c.subcategory">
-            </label>
-            <label>
-                <span>Title</span><br><input type="text" ng-model="c.title">
-            </label>
-            <br>
-            <label>
-                <span>Text</span><br><textarea cols="40" id="bio" ng-model="c.text"></textarea>
-            </label>
-            <br>
-            <label>
-                <button ng-click="c.post(c.category, c.subcategory, c.title, c.text)">Submit New Resource</button>
-            </label>
-
-            <p>{{c.message}}</p>
+        <div class="main">
+            <div ng-controller="controller as c" class="form left">
+                <h4 class="form-heading">Add a new resource:</h4>
+                <label>
+                    <span>Category</span><br><input type="text" ng-model="c.category">
+                </label>
+                <label>
+                    <span>Subcategory</span><br><input type="text" ng-model="c.subcategory">
+                </label>
+                <label>
+                    <span>Title</span><br><input type="text" ng-model="c.title">
+                </label>
+                <br>
+                <label>
+                    <span>Text</span><br><textarea cols="40" id="bio" ng-model="c.text"></textarea>
+                </label>
+                <br>
+                <label>
+                    <button ng-click="c.post(c.category, c.subcategory, c.title, c.text)">Submit New Resource</button>
+                </label>
+                <p>{{c.message}}</p>
+            </div>
+            <!-- RESOURCES HERE -->
+            <div class="right">
+                <h4 class="form-heading">Current Resources:</h4>
+                <div id="resources"></div>
+            </div>
+            <!-- END RESOURCES -->
         </div>
-        <!-- RESOURCES HERE -->
-        <div id="resources" class="right"></div>
-        <!-- END RESOURCES -->
         <footer class="footer">
             <div class="container">
                 <p class="text-muted">This site is a project site and is only intended to be used for demonstration purposes.</p>

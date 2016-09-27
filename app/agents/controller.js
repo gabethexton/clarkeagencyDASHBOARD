@@ -5,7 +5,7 @@ app.controller('controller', ['$http', '$window', function ($http, $window) {
 
     vm.sessionStorage = $window.sessionStorage;
 
-    vm.post = function (username, password, firstname, lastname, displayname, title, phone, email, bio) {
+    vm.post = function (username, password, firstname, lastname, displayname, title, phone, pic, email, bio) {
         $http.post('https://clarkeagency.herokuapp.com/auth/signup', {
             username: username,
             password: password,
@@ -32,8 +32,8 @@ app.controller('controller', ['$http', '$window', function ($http, $window) {
             });
     };
 
-    vm.put = function (username, password, firstname, lastname, displayname, title, phone, email, bio) {
-        $http.post('https://clarkeagency.herokuapp.com/auth/signup', {
+    vm.put = function (username, password, firstname, lastname, displayname, title, phone, pic, email, bio) {
+        $http.put(('https://clarkeagency.herokuapp.com/agents/'.concat(vm.sessionStorage.id)), {
             username: username,
             password: password,
             firstname: firstname,

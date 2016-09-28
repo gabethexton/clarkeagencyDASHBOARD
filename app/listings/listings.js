@@ -5817,6 +5817,87 @@ var _elm_lang$core$Json_Decode$dict = function (decoder) {
 };
 var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
 
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$nullable = function (decoder) {
+	return _elm_lang$core$Json_Decode$oneOf(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+				A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, decoder)
+			]));
+};
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode = _elm_lang$core$Json_Decode$succeed;
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$resolveResult = function (resultDecoder) {
+	return A2(_elm_lang$core$Json_Decode$customDecoder, resultDecoder, _elm_lang$core$Basics$identity);
+};
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom = _elm_lang$core$Json_Decode$object2(
+	F2(
+		function (x, y) {
+			return y(x);
+		}));
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded = function (_p0) {
+	return _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom(
+		_elm_lang$core$Json_Decode$succeed(_p0));
+};
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optionalDecoder = F3(
+	function (pathDecoder, valDecoder, fallback) {
+		var nullOr = function (decoder) {
+			return _elm_lang$core$Json_Decode$oneOf(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						decoder,
+						_elm_lang$core$Json_Decode$null(fallback)
+					]));
+		};
+		var handleResult = function (input) {
+			var _p1 = A2(_elm_lang$core$Json_Decode$decodeValue, pathDecoder, input);
+			if (_p1.ctor === 'Ok') {
+				return A2(
+					_elm_lang$core$Json_Decode$decodeValue,
+					nullOr(valDecoder),
+					_p1._0);
+			} else {
+				return _elm_lang$core$Result$Ok(fallback);
+			}
+		};
+		return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$value, handleResult);
+	});
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optionalAt = F4(
+	function (path, valDecoder, fallback, decoder) {
+		return A2(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optionalDecoder,
+				A2(_elm_lang$core$Json_Decode$at, path, _elm_lang$core$Json_Decode$value),
+				valDecoder,
+				fallback),
+			decoder);
+	});
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional = F4(
+	function (key, valDecoder, fallback, decoder) {
+		return A2(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optionalDecoder,
+				A2(_elm_lang$core$Json_Decode_ops[':='], key, _elm_lang$core$Json_Decode$value),
+				valDecoder,
+				fallback),
+			decoder);
+	});
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$requiredAt = F3(
+	function (path, valDecoder, decoder) {
+		return A2(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+			A2(_elm_lang$core$Json_Decode$at, path, valDecoder),
+			decoder);
+	});
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required = F3(
+	function (key, valDecoder, decoder) {
+		return A2(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+			A2(_elm_lang$core$Json_Decode_ops[':='], key, valDecoder),
+			decoder);
+	});
+
 var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
 var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
 var _elm_lang$core$Task$spawnCmd = F2(
@@ -9005,7 +9086,7 @@ var _user$project$Listings$view = function (model) {
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
 				[
-					_elm_lang$html$Html_Attributes$class('panel panel-default agent-card')
+					_elm_lang$html$Html_Attributes$class('panel panel-default listing-card')
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
@@ -9013,105 +9094,114 @@ var _user$project$Listings$view = function (model) {
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('panel-heading')
+							_elm_lang$html$Html_Attributes$class('panel-heading listing-header')
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(
-							_elm_lang$html$Html$h3,
+							_elm_lang$html$Html$h4,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html_Attributes$class('panel-title')
+									_elm_lang$html$Html_Attributes$class('listing-title')
 								]),
 							_elm_lang$core$Native_List.fromArray(
 								[
 									_elm_lang$html$Html$text(listing.address)
 								])),
 							A2(
-							_elm_lang$html$Html$h6,
-							_elm_lang$core$Native_List.fromArray(
-								[]),
+							_elm_lang$html$Html$h4,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html$text(listing.city)
+									_elm_lang$html$Html_Attributes$class('listing-price')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'$ ',
+										_elm_lang$core$Basics$toString(listing.price)))
+								])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('listing-pic')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$img,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$src(listing.pic)
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
 								]))
 						])),
 					A2(
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('panel-body')
+							_elm_lang$html$Html_Attributes$class('panel-body listing-details')
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(
-							_elm_lang$html$Html$ul,
+							_elm_lang$html$Html$h5,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
 							_elm_lang$core$Native_List.fromArray(
 								[
-									A2(_elm_lang$html$Html_Attributes$attribute, 'style', 'list-style: none;')
-								]),
-							_elm_lang$core$Native_List.fromArray(
-								[
+									_elm_lang$html$Html$text(
 									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
+										_elm_lang$core$Basics_ops['++'],
+										'Located at: ',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											listing.address,
 											A2(
 												_elm_lang$core$Basics_ops['++'],
-												listing.city,
+												' - ',
 												A2(
 													_elm_lang$core$Basics_ops['++'],
-													', ',
+													listing.city,
 													A2(
 														_elm_lang$core$Basics_ops['++'],
-														listing.state,
-														A2(_elm_lang$core$Basics_ops['++'], ' - ', listing.zip)))))
-										])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'$',
-												_elm_lang$core$Basics$toString(listing.price)))
-										])),
-									A2(
-									_elm_lang$html$Html$hr,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'Description: ', listing.description))
-										])),
-									A2(
-									_elm_lang$html$Html$hr,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[])),
-									A2(
-									_elm_lang$html$Html$li,
-									_elm_lang$core$Native_List.fromArray(
-										[]),
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'Notes: ', listing.notes))
-										]))
+														' - ',
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															listing.state,
+															A2(_elm_lang$core$Basics_ops['++'], ' - ', listing.zip))))))))
+								])),
+							A2(
+							_elm_lang$html$Html$hr,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$h5,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(listing.description)
+								])),
+							A2(
+							_elm_lang$html$Html$hr,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$h5,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(listing.notes)
 								]))
 						]))
 				]));
@@ -9139,21 +9229,47 @@ var _user$project$Listings$Model = F4(
 	function (a, b, c, d) {
 		return {helloWorld: a, pageName: b, message: c, listings: d};
 	});
-var _user$project$Listings$ListingInfo = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {id: a, address: b, city: c, state: d, zip: e, price: f, description: g, notes: h};
+var _user$project$Listings$ListingInfo = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {id: a, address: b, city: c, state: d, zip: e, price: f, description: g, notes: h, pic: i};
 	});
-var _user$project$Listings$listingInfoDecoder = A9(
-	_elm_lang$core$Json_Decode$object8,
-	_user$project$Listings$ListingInfo,
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'address', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'city', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'state', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'zip', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'price', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'description', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'notes', _elm_lang$core$Json_Decode$string));
+var _user$project$Listings$listingInfoDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'pic',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'notes',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'description',
+			_elm_lang$core$Json_Decode$string,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'price',
+				_elm_lang$core$Json_Decode$int,
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'zip',
+					_elm_lang$core$Json_Decode$string,
+					A3(
+						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+						'state',
+						_elm_lang$core$Json_Decode$string,
+						A3(
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+							'city',
+							_elm_lang$core$Json_Decode$string,
+							A3(
+								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+								'address',
+								_elm_lang$core$Json_Decode$string,
+								A3(
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+									'id',
+									_elm_lang$core$Json_Decode$int,
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Listings$ListingInfo))))))))));
 var _user$project$Listings$listingInfoListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Listings$listingInfoDecoder);
 var _user$project$Listings$Request = F4(
 	function (a, b, c, d) {

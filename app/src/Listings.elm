@@ -9,7 +9,8 @@ import Html.App as App exposing (..)
 import Html.Events exposing (..)
 import Http exposing (..)
 import Task exposing (Task)
-import Json.Decode as Json exposing ((:=))
+import Json.Decode exposing (int, string, float, Decoder)
+import Json.Decode.Pipeline exposing (decode, required, optional, hardcoded)
 
 
 --------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ type alias ListingInfo =
     , price : Int
     , description : String
     , notes : String
+    , pic : String
     }
 
 
@@ -93,29 +95,20 @@ view model =
     let
         showListing listing =
             div
-                [ class "panel panel-default agent-card" ]
+                [ class "panel panel-default listing-card" ]
                 [ div
-                    [ class "panel-heading" ]
-                    [ h3
-                        [ class "panel-title" ]
-                        [ text <| listing.address ]
-                    , h6 []
-                        [ text <| listing.city ]
+                    [ class "panel-heading listing-header" ]
+                    [ h4 [ class "listing-title" ] [ text listing.address ]
+                    , h4 [ class "listing-price" ] [ text <| ("$ " ++ toString listing.price) ]
+                    , div [ class "listing-pic" ] [ img [ src listing.pic ] [] ]
                     ]
                 , div
-                    [ class "panel-body" ]
-                    [ ul [ attribute "style" "list-style: none;" ]
-                        [ li []
-                            [ text <| (listing.city ++ ", " ++ listing.state ++ " - " ++ listing.zip) ]
-                        , li []
-                            [ text <| "$" ++ (toString listing.price) ]
-                        , hr [] []
-                        , li []
-                            [ text ("Description: " ++ listing.description) ]
-                        , hr [] []
-                        , li []
-                            [ text ("Notes: " ++ listing.notes) ]
-                        ]
+                    [ class "panel-body listing-details" ]
+                    [ h5 [] [ text ("Located at: " ++ listing.address ++ " - " ++ listing.city ++ " - " ++ listing.state ++ " - " ++ listing.zip) ]
+                    , hr [] []
+                    , h5 [] [ text <| listing.description ]
+                    , hr [] []
+                    , h5 [] [ text <| listing.notes ]
                     ]
                 ]
     in
@@ -218,23 +211,23 @@ formView model =
 -- Listings
 
 
-listingInfoDecoder : Json.Decoder ListingInfo
+listingInfoDecoder : Json.Decode.Decoder ListingInfo
 listingInfoDecoder =
-    Json.object8
-        ListingInfo
-        ("id" := Json.int)
-        ("address" := Json.string)
-        ("city" := Json.string)
-        ("state" := Json.string)
-        ("zip" := Json.string)
-        ("price" := Json.int)
-        ("description" := Json.string)
-        ("notes" := Json.string)
+    decode ListingInfo
+        |> Json.Decode.Pipeline.required "id" int
+        |> Json.Decode.Pipeline.required "address" Json.Decode.string
+        |> Json.Decode.Pipeline.required "city" Json.Decode.string
+        |> Json.Decode.Pipeline.required "state" Json.Decode.string
+        |> Json.Decode.Pipeline.required "zip" Json.Decode.string
+        |> Json.Decode.Pipeline.required "price" int
+        |> Json.Decode.Pipeline.required "description" Json.Decode.string
+        |> Json.Decode.Pipeline.required "notes" Json.Decode.string
+        |> Json.Decode.Pipeline.required "pic" Json.Decode.string
 
 
-listingInfoListDecoder : Json.Decoder (List ListingInfo)
+listingInfoListDecoder : Decoder (List ListingInfo)
 listingInfoListDecoder =
-    Json.list listingInfoDecoder
+    Json.Decode.list listingInfoDecoder
 
 
 getListings : Cmd Msg
